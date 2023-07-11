@@ -8,3 +8,6 @@ install-tools: download
 
 generate-examples:
 	@go generate ./examples/...
+
+example.basic:
+	go run main.go -t ./examples/basic/schema
