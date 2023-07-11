@@ -10,4 +10,4 @@ generate-examples:
 	@go generate ./examples/...
 
 example.basic:
-	go run main.go -t ./examples/basic/schema
+	go run main.go -s ./examples/basic/schema -t ./examples/basic/erd.md

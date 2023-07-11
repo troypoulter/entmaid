@@ -2,14 +2,14 @@ package cmd
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"strings"
 
 	"entgo.io/ent/entc"
 	"entgo.io/ent/entc/gen"
 )
 
-func GenerateDiagram(schemaPath string) error {
+func GenerateDiagram(schemaPath string, targetPath string) error {
 	graph, err := entc.LoadGraph(schemaPath, &gen.Config{})
 	if err != nil {
 		return fmt.Errorf("failed to load schema graph from the path %s: %v", schemaPath, err)
@@ -18,7 +18,7 @@ func GenerateDiagram(schemaPath string) error {
 	mermaidCode := generateMermaidCode(graph)
 
 	// Save the Mermaid code to a file
-	err = ioutil.WriteFile("erd.md", []byte(mermaidCode), 0644)
+	err = os.WriteFile(targetPath, []byte(mermaidCode), 0644)
 	if err != nil {
 		return fmt.Errorf("failed to write Mermaid file: %v", err)
 	}
@@ -35,22 +35,27 @@ func generateMermaidCode(graph *gen.Graph) string {
 	builder.WriteString("```mermaid\n")
 	builder.WriteString("erDiagram\n")
 
-	// Process each node in the graph
 	for _, node := range graph.Nodes {
 		entityName := node.Name
-		builder.WriteString(fmt.Sprintf("   %s {\n", entityName))
+		builder.WriteString(fmt.Sprintf("\t%s {\n", entityName))
 
-		// Process each field in the node
-		for _, field := range node.Fields {
-			builder.WriteString(fmt.Sprintf("    %s %s\n", formatType(field.Type.String()), field.Name))
+		if node.HasOneFieldID() {
+			builder.WriteString(fmt.Sprintf("\t\t%s %s\n", formatType(node.ID.Type.String()), node.ID.Name))
 		}
 
-		builder.WriteString("  }\n\n")
+		for _, field := range node.Fields {
+			builder.WriteString(fmt.Sprintf("\t\t%s %s\n", formatType(field.Type.String()), field.Name))
+		}
 
-		// Process the edges/relationships
-		// for _, edge := range node.Edges {
-		// 	builder.WriteString(fmt.Sprintf("  %s }|--|{ %s\n", edge.Name, edge.Ref.Name))
-		// }
+		builder.WriteString("\t}\n\n")
+
+		for _, edge := range node.Edges {
+			if edge.IsInverse() {
+				continue
+			}
+
+			builder.WriteString(fmt.Sprintf("  %s %s %s : %s-%s\n", node.Name, getEdgeRelationship(edge), edge.Type.Name, edge.Name, edge.Ref.Name))
+		}
 	}
 
 	builder.WriteString("```")
@@ -60,9 +65,22 @@ func generateMermaidCode(graph *gen.Graph) string {
 
 func formatType(s string) string {
 	return strings.NewReplacer(
-		".", "DOT",
-		"*", "STAR",
-		"[", "LBRACK",
-		"]", "RBRACK",
+		".", "-",
 	).Replace(s)
+}
+
+func getEdgeRelationship(edge *gen.Edge) string {
+	if edge.O2M() {
+		return "|o--o|"
+	}
+
+	if edge.M2O() {
+		return "|o--o{"
+	}
+
+	if edge.M2M() {
+		return "}o--o|"
+	}
+
+	return "}o--o{"
 }
