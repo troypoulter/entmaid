@@ -9,13 +9,15 @@ import (
 	"entgo.io/ent/entc/gen"
 )
 
-func GenerateDiagram(schemaPath string, targetPath string) error {
+func GenerateDiagram(schemaPath string, targetPath string, outputType OutputType) error {
 	graph, err := entc.LoadGraph(schemaPath, &gen.Config{})
 	if err != nil {
 		return fmt.Errorf("failed to load schema graph from the path %s: %v", schemaPath, err)
 	}
 	// Generate the Mermaid code for the ERD diagram
 	mermaidCode := generateMermaidCode(graph)
+
+	mermaidCode = addMermaidToType(mermaidCode, outputType)
 
 	// Save the Mermaid code to a file
 	err = os.WriteFile(targetPath, []byte(mermaidCode), 0644)
@@ -32,7 +34,6 @@ func GenerateDiagram(schemaPath string, targetPath string) error {
 func generateMermaidCode(graph *gen.Graph) string {
 	var builder strings.Builder
 
-	builder.WriteString("```mermaid\n")
 	builder.WriteString("erDiagram\n")
 
 	for _, node := range graph.Nodes {
@@ -59,9 +60,16 @@ func generateMermaidCode(graph *gen.Graph) string {
 		}
 	}
 
-	builder.WriteString("```")
-
 	return builder.String()
+}
+
+func addMermaidToType(mermaidCode string, outputType OutputType) string {
+	switch outputType {
+	case Markdown:
+		return fmt.Sprintf("```mermaid\n%s\n```", mermaidCode)
+	default:
+		return fmt.Sprintf("```mermaid\n%s\n```", mermaidCode)
+	}
 }
 
 func formatType(s string) string {

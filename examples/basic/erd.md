@@ -19,4 +19,5 @@ erDiagram
 
 	Group }o--o{ User : users-groups
 	User |o--o{ Car : cars-owner
+
 ```
