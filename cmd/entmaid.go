@@ -67,8 +67,10 @@ func addMermaidToType(mermaidCode string, outputType OutputType) string {
 	switch outputType {
 	case Markdown:
 		return fmt.Sprintf("```mermaid\n%s\n```", mermaidCode)
+	case Bare:
+		return mermaidCode
 	default:
-		return fmt.Sprintf("```mermaid\n%s\n```", mermaidCode)
+		return mermaidCode
 	}
 }
 

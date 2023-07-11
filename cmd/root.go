@@ -11,10 +11,12 @@ type OutputType enumflag.Flag
 
 const (
 	Markdown OutputType = iota
+	Bare
 )
 
 var OutputTypeIds = map[OutputType][]string{
 	Markdown: {"markdown"},
+	Bare:     {"bare"},
 }
 
 var schemaPath string
@@ -46,6 +48,6 @@ func init() {
 	rootCmd.PersistentFlags().VarP(
 		enumflag.New(&outputType, "outputType", OutputTypeIds, enumflag.EnumCaseSensitive),
 		"outputType", "o",
-		"set the desired output type: can be 'markdown' (useful for GitHub)")
+		"set the desired output type: can be 'markdown' (useful for GitHub), 'bare'")
 	rootCmd.PersistentFlags().Lookup("outputType").NoOptDefVal = "markdown"
 }
