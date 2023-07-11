@@ -36,8 +36,7 @@ func generateMermaidCode(graph *gen.Graph) string {
 	builder.WriteString("erDiagram\n")
 
 	for _, node := range graph.Nodes {
-		entityName := node.Name
-		builder.WriteString(fmt.Sprintf("\t%s {\n", entityName))
+		builder.WriteString(fmt.Sprintf("\t%s {\n", node.Name))
 
 		if node.HasOneFieldID() {
 			builder.WriteString(fmt.Sprintf("\t\t%s %s\n", formatType(node.ID.Type.String()), node.ID.Name))
@@ -48,13 +47,15 @@ func generateMermaidCode(graph *gen.Graph) string {
 		}
 
 		builder.WriteString("\t}\n\n")
+	}
 
+	for _, node := range graph.Nodes {
 		for _, edge := range node.Edges {
 			if edge.IsInverse() {
 				continue
 			}
 
-			builder.WriteString(fmt.Sprintf("  %s %s %s : %s-%s\n", node.Name, getEdgeRelationship(edge), edge.Type.Name, edge.Name, edge.Ref.Name))
+			builder.WriteString(fmt.Sprintf("\t%s %s %s : %s-%s\n", node.Name, getEdgeRelationship(edge), edge.Type.Name, edge.Name, edge.Ref.Name))
 		}
 	}
 
@@ -71,16 +72,16 @@ func formatType(s string) string {
 
 func getEdgeRelationship(edge *gen.Edge) string {
 	if edge.O2M() {
-		return "|o--o|"
-	}
-
-	if edge.M2O() {
 		return "|o--o{"
 	}
 
-	if edge.M2M() {
+	if edge.M2O() {
 		return "}o--o|"
 	}
 
-	return "}o--o{"
+	if edge.M2M() {
+		return "}o--o{"
+	}
+
+	return "|o--o|"
 }
