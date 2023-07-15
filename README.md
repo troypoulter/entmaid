@@ -6,4 +6,3 @@ A CLI for generating [Entity-relationship](https://en.wikipedia.org/wiki/Entity%
 
 - Add the diagram directly inside your `README` or other markdown files.
 - (TODO) Create a standalone HTML page for interactive vieiwing.
-
