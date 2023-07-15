@@ -8,3 +8,9 @@ install-tools: download
 
 example.basic:
 	go run main.go -s ./examples/basic/schema -t ./examples/basic/erd.md -o markdown
+
+build:
+	go build -v -o ./bin/entmaid
+
+test:
+	go test -v ./cmd/...
