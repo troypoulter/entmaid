@@ -1,3 +1,5 @@
+# Example Basic - Generated Schema
+<!-- #start:entmaid -->
 ```mermaid
 erDiagram
 	Car {
@@ -21,3 +23,4 @@ erDiagram
 	User |o--o{ Car : cars-owner
 
 ```
+<!-- #end:entmaid -->

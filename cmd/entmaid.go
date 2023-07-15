@@ -9,7 +9,7 @@ import (
 	"entgo.io/ent/entc/gen"
 )
 
-func GenerateDiagram(schemaPath string, targetPath string, outputType OutputType) error {
+func GenerateDiagram(schemaPath string, targetPath string, outputType OutputType, startPattern string, endPattern string) error {
 	graph, err := entc.LoadGraph(schemaPath, &gen.Config{})
 	if err != nil {
 		return fmt.Errorf("failed to load schema graph from the path %s: %v", schemaPath, err)
@@ -19,10 +19,15 @@ func GenerateDiagram(schemaPath string, targetPath string, outputType OutputType
 
 	mermaidCode = addMermaidToType(mermaidCode, outputType)
 
-	// Save the Mermaid code to a file
-	err = os.WriteFile(targetPath, []byte(mermaidCode), 0644)
+	// // Save the Mermaid code to a file
+	// err = os.WriteFile(targetPath, []byte(mermaidCode), 0644)
+	// if err != nil {
+	// 	return fmt.Errorf("failed to write Mermaid file: %v", err)
+	// }
+
+	err = insertMultiLineString(targetPath, mermaidCode, startPattern, endPattern)
 	if err != nil {
-		return fmt.Errorf("failed to write Mermaid file: %v", err)
+		return fmt.Errorf("failed to insert Mermaid code into the file: %v", err)
 	}
 
 	fmt.Println("Mermaid file generated successfully.")
@@ -94,4 +99,35 @@ func getEdgeRelationship(edge *gen.Edge) string {
 	}
 
 	return "|o--o|"
+}
+
+func insertMultiLineString(filePath string, multiLineString string, startPattern string, endPattern string) error {
+	// Read the content of the file
+	content, err := os.ReadFile(filePath)
+	if err != nil {
+		return err
+	}
+
+	// Convert the content to a string
+	fileContent := string(content)
+
+	// Find the starting and ending strings
+	startIndex := strings.Index(fileContent, startPattern)
+	endIndex := strings.Index(fileContent, endPattern)
+
+	// Check if the starting and ending strings are found
+	if startIndex == -1 || endIndex == -1 {
+		return fmt.Errorf("starting (%s) or ending (%s) string not found in the file", startPattern, endPattern)
+	}
+
+	// Construct the updated content with the generated multi-line string
+	updatedContent := fileContent[:startIndex+len(startPattern)+1] + multiLineString + "\n" + fileContent[endIndex:]
+
+	// Write the updated content back to the file
+	err = os.WriteFile(filePath, []byte(updatedContent), 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

@@ -7,4 +7,4 @@ install-tools: download
 	@cat tools.go | grep _ | awk -F'"' '{print $$2}' | xargs -tI % go install %
 
 example.basic:
-	go run main.go -s ./examples/basic/schema -t ./examples/basic/erd.md -o bare
+	go run main.go -s ./examples/basic/schema -t ./examples/basic/erd.md -o markdown
