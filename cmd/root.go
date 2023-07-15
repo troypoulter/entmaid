@@ -49,5 +49,4 @@ func init() {
 		enumflag.New(&outputType, "outputType", OutputTypeIds, enumflag.EnumCaseSensitive),
 		"outputType", "o",
 		"set the desired output type: can be 'markdown' (useful for GitHub), 'bare'")
-	rootCmd.PersistentFlags().Lookup("outputType").NoOptDefVal = "markdown"
 }
