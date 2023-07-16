@@ -12,12 +12,12 @@ Schema taken from: <https://github.com/ent/ent/tree/master/examples/m2m2types>
 ```mermaid
 erDiagram
  Group {
-  int id
+  int id PK
   string name
  }
 
  User {
-  int id
+  int id PK
   int age
   string name
  }

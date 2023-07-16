@@ -64,18 +64,18 @@ Flags:
 ```mermaid
 erDiagram
  Car {
-  int id
+  int id PK
   string model
   time-Time registered_at
  }
 
  Group {
-  int id
+  int id PK
   string name
  }
 
  User {
-  int id
+  int id PK
   int age
   string name
  }
