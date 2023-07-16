@@ -42,7 +42,7 @@ func generateMermaidCode(graph *gen.Graph) (string, error) {
 		builder.WriteString(fmt.Sprintf(" %s {\n", node.Name))
 
 		if node.HasOneFieldID() {
-			builder.WriteString(fmt.Sprintf("  %s %s\n", formatType(node.ID.Type.String()), node.ID.Name))
+			builder.WriteString(fmt.Sprintf("  %s %s PK\n", formatType(node.ID.Type.String()), node.ID.Name))
 		}
 
 		for _, field := range node.Fields {
