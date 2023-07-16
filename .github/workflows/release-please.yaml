@@ -18,4 +18,4 @@ jobs:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           release-type: go
           package-name: entmaid
-          bump-minor-pre-major: true
+          release-as: 0.1.0
