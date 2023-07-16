@@ -9,20 +9,14 @@
 A CLI for generating [entity-relationship](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model) diagrams in [mermaid.js](https://mermaid.js.org/#/) for the Go entity framework [ent](https://entgo.io/) that can:
 
 - Add the diagram directly inside your `README` or other markdown files.
-- (TODO) Create a standalone HTML page for interactive vieiwing.
+- More coming soon.
 
 ## Install
-
-To get it like another package run:
-
-```bash
-go get -u github.com/troypoulter/entmaid
-```
 
 To otherwise install it:
 
 ```bash
-go install github.com/troypoulter/entmaid
+go install github.com/troypoulter/entmaid@latest
 ```
 
 ## Usage
