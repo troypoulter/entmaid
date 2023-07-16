@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.0](https://github.com/troypoulter/entmaid/compare/v0.2.0...v0.3.0) (2023-07-16)
+
+
+### Features
+
+* add foreign keys in generated diagram ([601bc8c](https://github.com/troypoulter/entmaid/commit/601bc8c556fa1b221c830aa6224cdd6590a74ee7))
+* add PK to table for well defined IDs ([98cf525](https://github.com/troypoulter/entmaid/commit/98cf52564681bc4692f7a0512c79321eb07b883d))
+* support M2M relationships and visualise them ([821db3c](https://github.com/troypoulter/entmaid/commit/821db3c8e49d9d6163a8b1143d4af141ff30928a))
+
 ## [0.2.0](https://github.com/troypoulter/entmaid/compare/v0.1.0...v0.2.0) (2023-07-16)
 
 
