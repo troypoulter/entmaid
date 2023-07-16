@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug entmaid",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "args": [
+                "-s",
+                "./examples/start/schema",
+                "-t",
+                "./examples/start/readme.md",
+                "-o",
+                "markdown"
+            ],
+            "env": {},
+            "showLog": true
+        }
+    ]
+}
