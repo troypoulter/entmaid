@@ -15,7 +15,10 @@ func GenerateDiagram(schemaPath string, targetPath string, outputType OutputType
 		return fmt.Errorf("failed to load schema graph from the path %s: %v", schemaPath, err)
 	}
 	// Generate the Mermaid code for the ERD diagram
-	mermaidCode := generateMermaidCode(graph)
+	mermaidCode, err := generateMermaidCode(graph)
+	if err != nil {
+		return err
+	}
 
 	mermaidCode = addMermaidToType(mermaidCode, outputType)
 
@@ -36,7 +39,7 @@ func GenerateDiagram(schemaPath string, targetPath string, outputType OutputType
 }
 
 // generateMermaidCode generates the Mermaid code for the ERD diagram based on the schema graph.
-func generateMermaidCode(graph *gen.Graph) string {
+func generateMermaidCode(graph *gen.Graph) (string, error) {
 	var builder strings.Builder
 
 	builder.WriteString("erDiagram\n")
@@ -61,11 +64,14 @@ func generateMermaidCode(graph *gen.Graph) string {
 				continue
 			}
 
-			builder.WriteString(fmt.Sprintf("\t%s %s %s : %s-%s\n", node.Name, getEdgeRelationship(edge), edge.Type.Name, edge.Name, edge.Ref.Name))
+			_, err := builder.WriteString(fmt.Sprintf("\t%s %s %s : %s%s\n", node.Name, getEdgeRelationship(edge), edge.Type.Name, edge.Name, getEdgeRefName(edge.Ref)))
+			if err != nil {
+				return "", fmt.Errorf("failed to write string: %v", err)
+			}
 		}
 	}
 
-	return builder.String()
+	return builder.String(), nil
 }
 
 func addMermaidToType(mermaidCode string, outputType OutputType) string {
@@ -99,6 +105,14 @@ func getEdgeRelationship(edge *gen.Edge) string {
 	}
 
 	return "|o--o|"
+}
+
+func getEdgeRefName(ref *gen.Edge) string {
+	if ref == nil {
+		return ""
+	}
+
+	return fmt.Sprintf("-%s", ref.Name)
 }
 
 func insertMultiLineString(filePath string, multiLineString string, startPattern string, endPattern string) error {
