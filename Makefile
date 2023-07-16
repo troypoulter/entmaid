@@ -1,10 +1,5 @@
-download:
-	@echo Download go.mod dependencies
-	@go mod download
- 
-install-tools: download
-	@echo Installing tools from tools.go
-	@cat tools.go | grep _ | awk -F'"' '{print $$2}' | xargs -tI % go install %
+install-tools:
+	go install entgo.io/ent/cmd/ent@latest
 
 example.readme:
 	go run main.go -s ./examples/start/schema -t ./README.md -o markdown --startPattern "<!-- #start:entmaidReadme1 -->" --endPattern "<!-- #end:entmaidReadme1 -->"
