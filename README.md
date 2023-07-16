@@ -61,6 +61,7 @@ erDiagram
   int id PK
   string model
   time-Time registered_at
+  int user_cars FK
  }
 
  Group {

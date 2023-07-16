@@ -49,6 +49,16 @@ func generateMermaidCode(graph *gen.Graph) (string, error) {
 			builder.WriteString(fmt.Sprintf("  %s %s\n", formatType(field.Type.String()), field.Name))
 		}
 
+		for _, foreignKey := range node.ForeignKeys {
+			// For now we don't support user defined foreign keys as need to test them out more.
+			// Will add support for them in the future and focus on the ent generated ones.
+			if foreignKey.UserDefined {
+				continue
+			}
+
+			builder.WriteString(fmt.Sprintf("  %s %s FK\n", formatType(foreignKey.Field.Type.String()), foreignKey.Field.Name))
+		}
+
 		builder.WriteString(" }\n\n")
 	}
 
