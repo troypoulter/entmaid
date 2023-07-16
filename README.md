@@ -1,6 +1,7 @@
 # entmaid
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/troypoulter/entmaid.svg)](https://pkg.go.dev/github.com/troypoulter/entmaid)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/troypoulter/entmaid/go.yaml?logo=github%20actions&label=Test)
 [![codecov](https://codecov.io/gh/troypoulter/entmaid/branch/main/graph/badge.svg?token=RM9PD4LKZ8)](https://codecov.io/gh/troypoulter/entmaid)
 [![Go Report Card](https://goreportcard.com/badge/github.com/troypoulter/entmaid)](https://goreportcard.com/report/github.com/troypoulter/entmaid)
 
