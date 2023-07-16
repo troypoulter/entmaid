@@ -60,10 +60,34 @@ func generateMermaidCode(graph *gen.Graph) (string, error) {
 		}
 
 		builder.WriteString(" }\n\n")
+
+		for _, edge := range node.Edges {
+			// Ent handles M2M relationships in a way that we can't easily generate an accurate ERD with it.
+			// SO we attempt to extract out the actual M2M table to properly display it.
+			if edge.M2M() {
+				// We need to map the relationship between both base tables, but only create the table once.
+				if !edge.IsInverse() {
+					rel := edge.Rel
+					builder.WriteString(fmt.Sprintf(" %s {\n", rel.Table))
+
+					for _, column := range rel.Columns {
+						builder.WriteString(fmt.Sprintf("  %s %s PK,FK\n", "int", column))
+					}
+
+					builder.WriteString(" }\n\n")
+				}
+			}
+		}
 	}
 
 	for _, node := range graph.Nodes {
 		for _, edge := range node.Edges {
+			// Need to handle M2M relationships a bit more special.
+			if edge.M2M() {
+				builder.WriteString(fmt.Sprintf(" %s %s %s : %s%s\n", node.Name, "|o--o{", edge.Rel.Table, edge.Name, getEdgeRefName(edge.Ref)))
+				continue
+			}
+
 			if edge.IsInverse() {
 				continue
 			}

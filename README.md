@@ -6,10 +6,7 @@
 [![codecov](https://codecov.io/gh/troypoulter/entmaid/branch/main/graph/badge.svg?token=RM9PD4LKZ8)](https://codecov.io/gh/troypoulter/entmaid)
 [![Go Report Card](https://goreportcard.com/badge/github.com/troypoulter/entmaid)](https://goreportcard.com/report/github.com/troypoulter/entmaid)
 
-A CLI for generating [entity-relationship](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model) diagrams in [mermaid.js](https://mermaid.js.org/#/) for the Go entity framework [ent](https://entgo.io/) that can:
-
-- Add the diagram directly inside your `README` or other markdown files.
-- More coming soon.
+A CLI for generating [entity-relationship](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model) diagrams in [mermaid.js](https://mermaid.js.org/#/) for the Go entity framework [ent](https://entgo.io/).
 
 ## Install
 
@@ -18,6 +15,52 @@ To otherwise install it:
 ```bash
 go install github.com/troypoulter/entmaid@latest
 ```
+
+## Features
+
+The generated diagram aims to be as SQL like as possible, so it will define:
+
+- **Primary (PK) and Foreign (FK) Keys**: This helps to see how the different relationships are made, especially for foreign keys where if using the standard edges in ent will specify in the schema the actual field name.
+- **Display Actual Many-to-Many (M2M) Table**: How ent shows M2M through the default edges approach doesn't make clear that it creates a separate table, so we show you what it actually looks like!
+
+Additional useful features outside of the generated diagram itself:
+
+- **Automatically insert your diagram code into your `README`**: You can support living design documents by having `entmaid` to place the generated diagram inside an existing `README` or any markdown file, so it always stays up-to-date!
+
+Here's an example diagram generated, checkout the [Usage](#usage) section on how it was generated!.
+
+<!-- #start:entmaidReadme1 -->
+```mermaid
+erDiagram
+ Car {
+  int id PK
+  string model
+  time-Time registered_at
+  int user_cars FK
+ }
+
+ Group {
+  int id PK
+  string name
+ }
+
+ group_users {
+  int group_id PK,FK
+  int user_id PK,FK
+ }
+
+ User {
+  int id PK
+  int age
+  string name
+ }
+
+ Group |o--o{ group_users : users-groups
+ User |o--o{ Car : cars-owner
+ User |o--o{ group_users : groups-users
+
+```
+<!-- #end:entmaidReadme1 -->
 
 ## Usage
 
@@ -50,41 +93,10 @@ Flags:
 
 3. You should now see the generated diagram in the `target` file, you can check out the diagram below as the above command generated it!
 
-> **Note**
->
-> I had to change the pattern slightly so it didn't conflict with the example usage command above.
-
-<!-- #start:entmaidReadme1 -->
-```mermaid
-erDiagram
- Car {
-  int id PK
-  string model
-  time-Time registered_at
-  int user_cars FK
- }
-
- Group {
-  int id PK
-  string name
- }
-
- User {
-  int id PK
-  int age
-  string name
- }
-
- Group }o--o{ User : users-groups
- User |o--o{ Car : cars-owner
-
-```
-<!-- #end:entmaidReadme1 -->
-
 ## Inspiration & Acknowledgements
 
 I was inspired by both [a8m/enter](https://github.com/a8m/enter) and [hedwigz/entviz](https://github.com/hedwigz/entviz) for generating mermaid diagrams from reading in just the ent schema folder.
 
-I created this as I also wanted to support `plain` and `markdown` mode, so I could easily generate the diagrams and include directly in technical design documents and ensure it is always up-to-date.
+I created this as I wanted to support additional features (as listed in the [Features](#features) section!), especially being able to insert the generated diagram code _directly_ into my markdown files has been awesome!
 
 This is also my first publihsed Go module and I wanted to give it a shot!

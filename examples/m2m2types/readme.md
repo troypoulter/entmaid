@@ -16,13 +16,19 @@ erDiagram
   string name
  }
 
+ group_users {
+  int group_id PK,FK
+  int user_id PK,FK
+ }
+
  User {
   int id PK
   int age
   string name
  }
 
- Group }o--o{ User : users-groups
+ Group |o--o{ group_users : users-groups
+ User |o--o{ group_users : groups-users
 
 ```
 <!-- #end:entmaid -->
