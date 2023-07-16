@@ -1,6 +1,6 @@
 # M2M with Two Types
 
-Schema taken from: https://github.com/ent/ent/tree/master/examples/m2m2types
+Schema taken from: <https://github.com/ent/ent/tree/master/examples/m2m2types>
 
 ## Schema
 
@@ -11,18 +11,18 @@ Schema taken from: https://github.com/ent/ent/tree/master/examples/m2m2types
 <!-- #start:entmaid -->
 ```mermaid
 erDiagram
-	Group {
-		int id
-		string name
-	}
+ Group {
+  int id
+  string name
+ }
 
-	User {
-		int id
-		int age
-		string name
-	}
+ User {
+  int id
+  int age
+  string name
+ }
 
-	Group }o--o{ User : users-groups
+ Group }o--o{ User : users-groups
 
 ```
 <!-- #end:entmaid -->

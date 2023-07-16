@@ -1,6 +1,6 @@
 # Starting Example
 
-Schema taken from: https://github.com/ent/ent/tree/master/examples/start
+Schema taken from: <https://github.com/ent/ent/tree/master/examples/start>
 
 ## Schema
 
@@ -11,25 +11,25 @@ Schema taken from: https://github.com/ent/ent/tree/master/examples/start
 <!-- #start:entmaid -->
 ```mermaid
 erDiagram
-	Car {
-		int id
-		string model
-		time-Time registered_at
-	}
+ Car {
+  int id
+  string model
+  time-Time registered_at
+ }
 
-	Group {
-		int id
-		string name
-	}
+ Group {
+  int id
+  string name
+ }
 
-	User {
-		int id
-		int age
-		string name
-	}
+ User {
+  int id
+  int age
+  string name
+ }
 
-	Group }o--o{ User : users-groups
-	User |o--o{ Car : cars-owner
+ Group }o--o{ User : users-groups
+ User |o--o{ Car : cars-owner
 
 ```
 <!-- #end:entmaid -->
