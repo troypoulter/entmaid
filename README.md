@@ -1,5 +1,9 @@
 # entmaid
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/troypoulter/entmaid.svg)](https://pkg.go.dev/github.com/troypoulter/entmaid)
+[![codecov](https://codecov.io/gh/troypoulter/entmaid/branch/main/graph/badge.svg?token=RM9PD4LKZ8)](https://codecov.io/gh/troypoulter/entmaid)
+[![Go Report Card](https://goreportcard.com/badge/github.com/troypoulter/entmaid)](https://goreportcard.com/report/github.com/troypoulter/entmaid)
+
 A CLI for generating [entity-relationship](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model) diagrams in [mermaid.js](https://mermaid.js.org/#/) for the Go entity framework [ent](https://entgo.io/) that can:
 
 - Add the diagram directly inside your `README` or other markdown files.
