@@ -1,5 +1,6 @@
 install-tools:
 	go install entgo.io/ent/cmd/ent@latest
+	curl -sSf https://atlasgo.sh | sh
 
 example.readme:
 	go run main.go -s ./examples/start/schema -t ./README.md -o markdown --startPattern "<!-- #start:entmaidReadme1 -->" --endPattern "<!-- #end:entmaidReadme1 -->"

@@ -21,3 +21,8 @@
 go.work
 
 bin/
+
+# Ignore any ent generated code in examples
+examples/*
+!examples/*/*.md
+!examples/*/schema/*
