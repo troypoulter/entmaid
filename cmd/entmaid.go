@@ -22,12 +22,6 @@ func GenerateDiagram(schemaPath string, targetPath string, outputType OutputType
 
 	mermaidCode = addMermaidToType(mermaidCode, outputType)
 
-	// // Save the Mermaid code to a file
-	// err = os.WriteFile(targetPath, []byte(mermaidCode), 0644)
-	// if err != nil {
-	// 	return fmt.Errorf("failed to write Mermaid file: %v", err)
-	// }
-
 	err = insertMultiLineString(targetPath, mermaidCode, startPattern, endPattern)
 	if err != nil {
 		return fmt.Errorf("failed to insert Mermaid code into the file: %v", err)

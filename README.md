@@ -45,7 +45,7 @@ Flags:
   -t, --target string           target file to output diagram (default "./ent/erd.md")
 ```
 
-1. Start by putting the desired `startPattern` (default: `<!-- #start:entmaid -->`) and `endPattern` (default: `<!-- #end:entmaid -->`) values into your `target` file so `entmaid` knows where to insert the diagram.
+1. Start by putting the desired `startPattern` and `endPattern` values into your `target` file so `entmaid` knows where to insert the diagram.
 
 2. Run the command passing through all the relevant parameters, this example will be using the command from the [Makefie](./Makefile), `example.readme`:
 
