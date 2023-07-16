@@ -22,16 +22,16 @@ const (
 func TestGenerateDiagram(t *testing.T) {
 	testCases := []testCase{
 		{
-			schemaPath:     "../examples/basic/schema",
-			targetPath:     "../examples/basic/erd.md",
-			expectedOutput: "../examples/basic/erd-expected.md",
+			schemaPath:     "../examples/start/schema",
+			targetPath:     "../examples/start/readme.md",
+			expectedOutput: "../examples/start/readme-expected.md",
 			startPattern:   defaultStartPattern,
 			endPattern:     defaultEndPattern,
 		},
 		{
-			schemaPath:     "../examples/basic_two/schema",
-			targetPath:     "../examples/basic_two/erd.md",
-			expectedOutput: "../examples/basic_two/erd-expected.md",
+			schemaPath:     "../examples/m2m2types/schema",
+			targetPath:     "../examples/m2m2types/readme.md",
+			expectedOutput: "../examples/m2m2types/readme-expected.md",
 			startPattern:   defaultStartPattern,
 			endPattern:     defaultEndPattern,
 		},
