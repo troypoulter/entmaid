@@ -45,17 +45,17 @@ func generateMermaidCode(graph *gen.Graph) (string, error) {
 	builder.WriteString("erDiagram\n")
 
 	for _, node := range graph.Nodes {
-		builder.WriteString(fmt.Sprintf("\t%s {\n", node.Name))
+		builder.WriteString(fmt.Sprintf(" %s {\n", node.Name))
 
 		if node.HasOneFieldID() {
-			builder.WriteString(fmt.Sprintf("\t\t%s %s\n", formatType(node.ID.Type.String()), node.ID.Name))
+			builder.WriteString(fmt.Sprintf("  %s %s\n", formatType(node.ID.Type.String()), node.ID.Name))
 		}
 
 		for _, field := range node.Fields {
-			builder.WriteString(fmt.Sprintf("\t\t%s %s\n", formatType(field.Type.String()), field.Name))
+			builder.WriteString(fmt.Sprintf("  %s %s\n", formatType(field.Type.String()), field.Name))
 		}
 
-		builder.WriteString("\t}\n\n")
+		builder.WriteString(" }\n\n")
 	}
 
 	for _, node := range graph.Nodes {
@@ -64,7 +64,7 @@ func generateMermaidCode(graph *gen.Graph) (string, error) {
 				continue
 			}
 
-			_, err := builder.WriteString(fmt.Sprintf("\t%s %s %s : %s%s\n", node.Name, getEdgeRelationship(edge), edge.Type.Name, edge.Name, getEdgeRefName(edge.Ref)))
+			_, err := builder.WriteString(fmt.Sprintf(" %s %s %s : %s%s\n", node.Name, getEdgeRelationship(edge), edge.Type.Name, edge.Name, getEdgeRefName(edge.Ref)))
 			if err != nil {
 				return "", fmt.Errorf("failed to write string: %v", err)
 			}
@@ -78,7 +78,7 @@ func addMermaidToType(mermaidCode string, outputType OutputType) string {
 	switch outputType {
 	case Markdown:
 		return fmt.Sprintf("```mermaid\n%s\n```", mermaidCode)
-	case Bare:
+	case Plain:
 		return mermaidCode
 	default:
 		return mermaidCode

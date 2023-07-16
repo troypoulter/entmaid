@@ -11,12 +11,12 @@ type OutputType enumflag.Flag
 
 const (
 	Markdown OutputType = iota
-	Bare
+	Plain
 )
 
 var OutputTypeIds = map[OutputType][]string{
 	Markdown: {"markdown"},
-	Bare:     {"bare"},
+	Plain:    {"plain"},
 }
 
 var schemaPath string
@@ -46,11 +46,11 @@ func Execute() {
 
 func init() {
 	rootCmd.PersistentFlags().StringVarP(&schemaPath, "schema", "s", "./ent/schema", "directory containing the schemas")
-	rootCmd.PersistentFlags().StringVarP(&targetPath, "target", "t", "./ent/erd.md", "target directory for schemas")
+	rootCmd.PersistentFlags().StringVarP(&targetPath, "target", "t", "./ent/erd.md", "target file to output diagram")
 	rootCmd.PersistentFlags().StringVar(&startPattern, "startPattern", "<!-- #start:entmaid -->", "target directory for schemas")
 	rootCmd.PersistentFlags().StringVar(&endPattern, "endPattern", "<!-- #end:entmaid -->", "target directory for schemas")
 	rootCmd.PersistentFlags().VarP(
 		enumflag.New(&outputType, "outputType", OutputTypeIds, enumflag.EnumCaseSensitive),
 		"outputType", "o",
-		"set the desired output type: can be 'markdown' (useful for GitHub), 'bare'")
+		"set the desired output type: can be 'markdown' (useful for GitHub), 'plain'")
 }
