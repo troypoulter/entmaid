@@ -1,6 +1,6 @@
 # Starting Example
 
-Schema taken from: https://github.com/ent/ent/tree/master/examples/start
+Schema taken from: <https://github.com/ent/ent/tree/master/examples/start>
 
 ## Schema
 

@@ -1,6 +1,6 @@
 # M2M with Two Types
 
-Schema taken from: https://github.com/ent/ent/tree/master/examples/m2m2types
+Schema taken from: <https://github.com/ent/ent/tree/master/examples/m2m2types>
 
 ## Schema
 
