@@ -21,4 +21,4 @@ build:
 	go build -o ./bin/entmaid
 
 test:
-	go test -v ./cmd/...
+	go test -v ./cmd/... -race -covermode=atomic -coverprofile=coverage.out
