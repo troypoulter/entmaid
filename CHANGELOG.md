@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.0](https://github.com/troypoulter/entmaid/compare/v0.1.0...v0.2.0) (2023-07-16)
+
+
+### Features
+
+* change outType bare to plain ([e0af7a0](https://github.com/troypoulter/entmaid/commit/e0af7a08e4826ad3dc257f843f7ea6a941722841))
+
+
+### Bug Fixes
+
+* null check an edge's ref to avoid a null ref error ([d37a255](https://github.com/troypoulter/entmaid/commit/d37a2558cb716ca418bf5f29eaf4e0eee9bd8e49))
+
 ## 0.1.0 (2023-07-16)
 
 
